@@ -31,7 +31,11 @@ class Wp_Post_Analytics_By_Algohex_Deactivator {
 	 */
 	public function deactivate() {
 		global $wpdb;
-		$wpdb->query( "DROP table IF EXISTS " . $this->post_analytics_table() );
+		if ( get_option( 'delete_data_when_deactivated', 'no' ) == 'yes' ) {
+			$wpdb->query( "DROP table IF EXISTS " . $this->post_analytics_table() );
+		}
+
+		delete_option( 'delete_data_when_deactivated' );
 	}
 
 	public function post_analytics_table() {

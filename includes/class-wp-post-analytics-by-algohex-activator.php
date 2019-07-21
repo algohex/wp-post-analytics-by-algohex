@@ -36,13 +36,22 @@ class Wp_Post_Analytics_By_Algohex_Activator {
 		global $wpdb;
 		if ( count( $wpdb->get_var( "Show table like '" . $this->post_analytics_table() . "'" ) ) == 0 ) {
 			$sqlQuery = 'CREATE TABLE `' . $this->post_analytics_table() . '` (
-				`id` INT NOT NULL AUTO_INCREMENT ,
-				`visitor_ip` INT NOT NULL ,
-				`post_id` INT NOT NULL ,
-				PRIMARY KEY (`id`)
+				id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT ,
+				visitor_ip BIGINT(20) UNSIGNED NOT NULL ,
+				post_id BIGINT(20) UNSIGNED NOT NULL ,
+				visit_datetime DATETIME,
+				PRIMARY KEY (id),
+				FOREIGN KEY (post_id) REFERENCES ' . $wpdb->prefix . "posts" . '(id) ON DELETE CASCADE ON UPDATE CASCADE
 			) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB;';
 			dbDelta( $sqlQuery );
 		}
+
+		add_option(
+			  "delete_data_when_deactivated"
+			, $value      = 'no'
+			, $deprecated = ''
+			, $autoload   = 'yes'
+		);
 	}
 
 	public function post_analytics_table() {
