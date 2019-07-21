@@ -100,4 +100,26 @@ class Wp_Post_Analytics_By_Algohex_Admin {
 
 	}
 
+	public function post_analytics_menu_sections() {
+		global $wpdb;
+		add_menu_page(
+			  "Post Analytics"
+			, "Post Analytics"
+			, "manage_options"
+			, "algohex-post-analytics"
+			, "dashborad"
+			, "dashicons-chart-line"
+			, 7
+		);
+
+		add_submenu_page(
+			  "algohex-post-analytics"
+			, "Setting"
+			, "Setting"
+			, "manage_options"
+			, "algohex-post-analytics-setting"
+			, "setting"
+		);
+	}
+
 }

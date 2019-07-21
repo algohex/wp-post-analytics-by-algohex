@@ -29,8 +29,14 @@ class Wp_Post_Analytics_By_Algohex_Deactivator {
 	 *
 	 * @since    1.0.0
 	 */
-	public static function deactivate() {
+	public function deactivate() {
+		global $wpdb;
+		$wpdb->query( "DROP table IF EXISTS " . $this->post_analytics_table() );
+	}
 
+	public function post_analytics_table() {
+		global $wpdb;
+		return $wpdb->prefix . "algo_post_analytics";
 	}
 
 }

@@ -43,7 +43,8 @@ define( 'WP_POST_ANALYTICS_BY_ALGOHEX_VERSION', '1.0.0' );
  */
 function activate_wp_post_analytics_by_algohex() {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-wp-post-analytics-by-algohex-activator.php';
-	Wp_Post_Analytics_By_Algohex_Activator::activate();
+	$activator = new Wp_Post_Analytics_By_Algohex_Activator();
+	$activator->activate();
 }
 
 /**
@@ -52,7 +53,8 @@ function activate_wp_post_analytics_by_algohex() {
  */
 function deactivate_wp_post_analytics_by_algohex() {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-wp-post-analytics-by-algohex-deactivator.php';
-	Wp_Post_Analytics_By_Algohex_Deactivator::deactivate();
+	$deactivator = new Wp_Post_Analytics_By_Algohex_Deactivator();
+	$deactivator->deactivate();
 }
 
 register_activation_hook( __FILE__, 'activate_wp_post_analytics_by_algohex' );

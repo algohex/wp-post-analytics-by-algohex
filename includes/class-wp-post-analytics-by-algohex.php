@@ -157,6 +157,7 @@ class Wp_Post_Analytics_By_Algohex {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 
+		$this->loader->add_action( 'admin_menu', $plugin_admin, 'post_analytics_menu_sections' );
 	}
 
 	/**
