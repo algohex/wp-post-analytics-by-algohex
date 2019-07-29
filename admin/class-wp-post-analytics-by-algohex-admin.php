@@ -117,6 +117,15 @@ class Wp_Post_Analytics_By_Algohex_Admin {
 
 		add_submenu_page(
 			  "algohex-post-analytics"
+			, "Dashboard"
+			, "Dashboard"
+			, "manage_options"
+			, "algohex-post-analytics"
+			, array( $this, 'post_analytics_dashbaord_page' )
+		);
+
+		add_submenu_page(
+			  "algohex-post-analytics"
 			, "Setting"
 			, "Setting"
 			, "manage_options"
@@ -129,7 +138,69 @@ class Wp_Post_Analytics_By_Algohex_Admin {
 	 * @since 1.0.0
 	 */
 	public function post_analytics_dashbaord_page() {
-		echo "this is dashboard page";
+		if ( ! current_user_can( 'manage_options' ) && ! current_user_can( 'administrator' ) ) {
+			return;
+		}
+		global $wpdb;
+		$postVisit = $wpdb->get_results( "
+			SELECT post_title, visitor_ip, visit_datetime
+			FROM {$wpdb->prefix}algo_post_analytics JOIN {$wpdb->prefix}posts
+			ON {$wpdb->prefix}algo_post_analytics.post_id = {$wpdb->prefix}posts.id
+			ORDER BY visit_datetime desc
+			LIMIT 10
+		", OBJECT );
+
+		$postVisitCount = $wpdb->get_results( "
+			SELECT post_title, COUNT(*) as total_visit
+			FROM {$wpdb->prefix}algo_post_analytics JOIN {$wpdb->prefix}posts
+			ON {$wpdb->prefix}algo_post_analytics.post_id = {$wpdb->prefix}posts.id
+			GROUP BY post_title
+			ORDER BY total_visit desc
+			LIMIT 5
+		", OBJECT );
+		?>
+		<div class="wrap">
+			<h1>Dashboard</h1>
+			<small>- WP Post Analytics -</small>
+			<hr />
+			<div class="algo-left algo-w-30 algo-border algo-border-grey algo-p-1 bg-white">
+				<p class="highest-visit-title">Top 5 highest visited post</p>
+				<ol>
+					<?php
+					foreach ($postVisitCount as $post) {
+						echo "<li>";
+						echo $post->post_title . " <strong class='algo-right'>" . $post->total_visit . " visits</strong>";
+						echo "</li>";
+					}
+					?>
+				</ol>
+			</div>
+
+			<div class="algo-right algo-w-60">
+				<p class="visit-log-title">Latest 10 visit</p>
+				<table class="widefat">
+					<thead>
+						<tr>
+							<th class="algohex-analytics-post">Post</th>
+							<th class="algohex-analytics-visitor">Visitor</th>
+							<th class="algohex-analytics-visit-datetime">Visit Datetime</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php
+						foreach ($postVisit as $visit) {
+							echo "<tr class='bg-light'>";
+							echo "<td class='algohex-analytics-post'>"           . $visit->post_title     . "</td>";
+							echo "<td class='algohex-analytics-visitor'>"        . $visit->visitor_ip     . "</td>";
+							echo "<td class='algohex-analytics-visit-datetime'>" . $visit->visit_datetime . "</td>";
+							echo "</tr>";
+						}
+						?>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<?php
 	}
 
 	/**
