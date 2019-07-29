@@ -14,7 +14,6 @@
  *
  * @wordpress-plugin
  * Plugin Name:       Post Analytics by Algohex
- * Plugin URI:        https://algohex.com
  * Description:       Track your post visit.
  * Version:           0.1.0
  * Author:            Algohex Web Developer Team
