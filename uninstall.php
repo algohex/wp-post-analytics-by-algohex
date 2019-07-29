@@ -20,7 +20,7 @@
  * https://github.com/tommcfarlin/WordPress-Plugin-Boilerplate/pull/123#issuecomment-28541913
  *
  * @link       https://algohex.com
- * @since      1.0.0
+ * @since      0.1.0
  *
  * @package    Wp_Post_Analytics_By_Algohex
  */
