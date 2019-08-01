@@ -15,7 +15,7 @@
  * @wordpress-plugin
  * Plugin Name:       Post Analytics by Algohex
  * Description:       Track your post visit.
- * Version:           0.1.0
+ * Version:           0.1.1
  * Author:            Algohex Web Developer Team
  * Author URI:        https://algohex.com
  * License:           GPL-3.0+
@@ -34,7 +34,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 0.1.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'WP_POST_ANALYTICS_BY_ALGOHEX_VERSION', '0.1.0' );
+define( 'WP_POST_ANALYTICS_BY_ALGOHEX_VERSION', '0.1.1' );
 
 /**
  * The code that runs during plugin activation.
